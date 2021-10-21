@@ -1,5 +1,7 @@
 package com.sparta.northwindrest.controllers;
 
+import com.sparta.northwindrest.DTO.EmployeeDetailsDTO;
+import com.sparta.northwindrest.DTO.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @RestController
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
+    @Autowired
+    private final EmployeeMapService employeeMapService;
 
     @Autowired
-    public EmployeeController(EmployeeRepository employeeRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, EmployeeMapService employeeMapService) {
         this.employeeRepository = employeeRepository;
+        this.employeeMapService = employeeMapService;
     }
 
     @GetMapping("/employees")
@@ -55,6 +59,14 @@ public class EmployeeController {
     public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
         return employeeRepository.findById(id);
     }
+
+    @GetMapping("/employees/employeeDetails")
+    @ResponseBody
+    public List<EmployeeDetailsDTO> getAllEmployeeDetails(){
+        return employeeMapService.getAllEmployeeDetails();
+    }
+
+    //----------------------------Util Methods-------------------------------------
 
     private boolean checkCity(EmployeeEntity employeeEntity, String city){
         return city != null && (employeeEntity.getCity().contains(city)

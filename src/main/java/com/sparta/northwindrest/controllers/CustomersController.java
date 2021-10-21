@@ -22,13 +22,13 @@ public class CustomersController {
 
     @GetMapping("/customers")
     @ResponseBody
-    public List<CustomersEntity> getAllCustomers(@RequestParam(required = false) String name){
-        if (name == null){
+    public List<CustomersEntity> getAllCustomers(@RequestParam(required = false) String companyName){
+        if (companyName == null){
             return customersRepository.findAll();
         }
         return customersRepository.findAll()
                 .stream()
-                .filter(customersEntity -> customersEntity.getContactName().contains(name))
+                .filter(customersEntity -> customersEntity.getContactName().contains(companyName))
                 .toList();
     }
 }
