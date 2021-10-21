@@ -22,7 +22,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "EmployeeID")
-    private Employee employeeID;
+    private EmployeeEntity employeeEntityID;
 
     @Column(name = "OrderDate")
     private Instant orderDate;
@@ -146,12 +146,12 @@ public class OrderEntity {
         this.orderDate = orderDate;
     }
 
-    public Employee getEmployeeID() {
-        return employeeID;
+    public EmployeeEntity getEmployeeID() {
+        return employeeEntityID;
     }
 
-    public void setEmployeeID(Employee employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployeeID(EmployeeEntity employeeEntityID) {
+        this.employeeEntityID = employeeEntityID;
     }
 
     public CustomersEntity getCustomerID() {
