@@ -32,14 +32,10 @@ public class EmployeeController {
             if (checkFirstName(employeeEntity, firstName) && !foundEntities.contains(employeeEntity)) {
                 foundEntities.add(employeeEntity);
             }
-            if (lastName != null && (employeeEntity.getLastName().contains(lastName)
-                    || employeeEntity.getLastName().toLowerCase().contains(lastName))
-                    && !foundEntities.contains(employeeEntity)) {
+            if (checkLastName(employeeEntity, lastName) && !foundEntities.contains(employeeEntity)) {
                 foundEntities.add(employeeEntity);
             }
-            if (country != null && (employeeEntity.getCountry().contains(country)
-                    || employeeEntity.getCountry().toLowerCase().contains(country))
-                    && !foundEntities.contains(employeeEntity)) {
+            if (checkCountry(employeeEntity, country) && !foundEntities.contains(employeeEntity)) {
                 foundEntities.add(employeeEntity);
             }
             if (checkCity(employeeEntity, city) && !foundEntities.contains(employeeEntity)) {
@@ -68,5 +64,15 @@ public class EmployeeController {
     private boolean checkFirstName(EmployeeEntity employeeEntity, String firstName){
         return firstName != null && (employeeEntity.getFirstName().contains(firstName)
                 || employeeEntity.getFirstName().toLowerCase().contains(firstName));
+    }
+
+    private boolean checkLastName(EmployeeEntity employeeEntity, String lastName){
+        return lastName != null && (employeeEntity.getLastName().contains(lastName)
+                || employeeEntity.getLastName().toLowerCase().contains(lastName));
+    }
+
+    private boolean checkCountry(EmployeeEntity employeeEntity, String country){
+        return country != null && (employeeEntity.getCountry().contains(country)
+                || employeeEntity.getCountry().toLowerCase().contains(country));
     }
 }
