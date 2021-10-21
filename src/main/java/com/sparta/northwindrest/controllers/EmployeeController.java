@@ -47,7 +47,7 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            return employeeRepository.findAll();
+            throw new IllegalArgumentException();
         }
         else {
             return foundEntities;
