@@ -5,7 +5,6 @@ import com.sparta.northwindrest.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +16,16 @@ public class NorthwindController {
     private final EmployeeRepository employeeRepository;
     private final ShipperRepository shipperRepository;
     private final SupplierRepository supplierRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public NorthwindController(ProductRepository productRepository, CustomersRepository customersRepository, EmployeeRepository employeeRepository, ShipperRepository shipperRepository, SupplierRepository supplierRepository) {
+    public NorthwindController(ProductRepository productRepository, CustomersRepository customersRepository, EmployeeRepository employeeRepository, ShipperRepository shipperRepository, SupplierRepository supplierRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.customersRepository = customersRepository;
         this.employeeRepository = employeeRepository;
         this.shipperRepository = shipperRepository;
         this.supplierRepository = supplierRepository;
+        this.orderRepository = orderRepository;
     }
 
     // ----------------------------------Products---------------------------------------------
@@ -47,31 +48,38 @@ public class NorthwindController {
         if (name == null){
             return customersRepository.findAll();
         }
-
-        List<CustomersEntity> foundCustomers = new ArrayList<>();
-//        for (CustomersEntity customersEntity: customersRepository.findAll()){
-//            if (customersEntity.getContactName().contains(name)){ // Partial matching
-//                foundCustomers.add(customersEntity);
-//            }
-//        }
-        foundCustomers = customersRepository.findAll()
+        return customersRepository.findAll()
                 .stream()
                 .filter(customersEntity -> customersEntity.getContactName().contains(name))
                 .toList();
-        return foundCustomers;
     }
 
     // -----------------------------------Employee--------------------------------------------
 
-    @GetMapping("/employee")
+    @GetMapping("/employees")
     @ResponseBody
     public List<EmployeeEntity> getAllEmployees(){
         return employeeRepository.findAll();
     }
 
-    // -----------------------------------Supplier---------------------------------------------
+//    @GetMapping("/employees")
+//    @ResponseBody
+//    public List<EmployeeEntity> getEmployeesFirstNameAndCountry(@RequestParam(required = false) String firstName,
+//                                                                  @RequestParam(required = false) String country){
+//
+//        if (firstName == null || country == null){
+//            return employeeRepository.findAll();
+//        }
+//        return employeeRepository.findAll()
+//                .stream()
+//                .filter(employeeEntity -> employeeEntity.getFirstName().contains(firstName) &&
+//                        employeeEntity.getCountry().equals(country))
+//                .toList();
+//    }
 
-    @GetMapping("/supplier")
+    // -----------------------------------Suppliers---------------------------------------------
+
+    @GetMapping("/suppliers")
     @ResponseBody
     public List<SupplierEntity> getAllSuppliers(){
         return supplierRepository.findAll();
@@ -79,9 +87,23 @@ public class NorthwindController {
 
     // -----------------------------------Shipper---------------------------------------------
 
-    @GetMapping("/shipper")
+    @GetMapping("/shippers")
     @ResponseBody
     public List<ShipperEntity> getAllShippers(){
         return shipperRepository.findAll();
+    }
+
+    // -----------------------------------Orders---------------------------------------------
+
+    @GetMapping("/orders")
+    @ResponseBody
+    public List<OrderEntity> getAllOrders(){
+        return orderRepository.findAll();
+    }
+
+    @GetMapping("/orders/{id}")
+    @ResponseBody
+    public Optional<OrderEntity> getOrderById(@PathVariable Integer id){
+        return orderRepository.findById(id);
     }
 }
