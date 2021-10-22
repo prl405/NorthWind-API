@@ -1,5 +1,6 @@
 package com.sparta.northwindrest.controllers;
 
+import com.sparta.northwindrest.dto.EmployeeContactDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
@@ -58,6 +59,12 @@ public class EmployeeController {
         else {
             return foundEntities;
         }
+    }
+
+    @GetMapping("/northwind/employees/contactInfo")
+    @ResponseBody
+    public List<EmployeeContactDTO> getAllEmployeeContactInfo(){
+        return employeeMapService.findAllEmployeesContactDTO();
     }
 
     @GetMapping("/northwind/employees/{id}")
