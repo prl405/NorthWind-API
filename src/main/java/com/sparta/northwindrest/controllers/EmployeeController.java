@@ -1,6 +1,8 @@
 package com.sparta.northwindrest.controllers;
 
-import com.sparta.northwindrest.dto.EmployeeDetailsDTO;
+import com.sparta.northwindrest.dto.EmployeeCustomersDTO;
+import com.sparta.northwindrest.dto.EmployeeInfoDTO;
+import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
@@ -24,67 +26,85 @@ public class EmployeeController {
         this.employeeMapService = employeeMapService;
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/northwind/employees")
     @ResponseBody
-    public List<EmployeeEntity> getEmployees(@RequestParam(required = false) String firstName,
+    public List<EmployeeDTO> getAllEmployees(){
+        return employeeMapService.findAllEmployeesDTO();
+    }
+
+    @GetMapping("/northwind/employees/")
+    @ResponseBody
+    public List<EmployeeDTO> getEmployees(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String country,
                                              @RequestParam(required = false) String city){
 
-        List<EmployeeEntity> foundEntities = new ArrayList<>();
-        for (EmployeeEntity employeeEntity : employeeRepository.findAll()) {
-            if (checkFirstName(employeeEntity, firstName) && !foundEntities.contains(employeeEntity)) {
-                foundEntities.add(employeeEntity);
+        List<EmployeeDTO> foundEntities = new ArrayList<>();
+        for (EmployeeDTO employeeDTO : employeeMapService.findAllEmployeesDTO()) {
+            if (checkFirstName(employeeDTO, firstName) && !foundEntities.contains(employeeDTO)) {
+                foundEntities.add(employeeDTO);
             }
-            if (checkLastName(employeeEntity, lastName) && !foundEntities.contains(employeeEntity)) {
-                foundEntities.add(employeeEntity);
+            if (checkLastName(employeeDTO, lastName) && !foundEntities.contains(employeeDTO)) {
+                foundEntities.add(employeeDTO);
             }
-            if (checkCountry(employeeEntity, country) && !foundEntities.contains(employeeEntity)) {
-                foundEntities.add(employeeEntity);
+            if (checkCountry(employeeDTO, country) && !foundEntities.contains(employeeDTO)) {
+                foundEntities.add(employeeDTO);
             }
-            if (checkCity(employeeEntity, city) && !foundEntities.contains(employeeEntity)) {
-                foundEntities.add(employeeEntity);
+            if (checkCity(employeeDTO, city) && !foundEntities.contains(employeeDTO)) {
+                foundEntities.add(employeeDTO);
             }
         }
         if (foundEntities.size() == 0){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("No arguments");
         }
         else {
             return foundEntities;
         }
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/northwind/employees/info")
+    @ResponseBody
+    public List<EmployeeInfoDTO> getAllEmployeeInfo(){
+        return employeeMapService.findAllEmployeesInfoDTO();
+    }
+
+    @GetMapping("/northwind/employees/customers")
+    @ResponseBody
+    public List<EmployeeCustomersDTO> getAllEmployeeCustomers(){
+        return employeeMapService.findAllEmployeeCustomersDTO();
+    }
+
+    @GetMapping("/northwind/employees/fullInfo/{id}")
     @ResponseBody
     public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
         return employeeRepository.findById(id);
     }
 
-    @GetMapping("/employees/employeeDetails")
+    @GetMapping("/northwind/employees/fullInfo")
     @ResponseBody
-    public List<EmployeeDetailsDTO> getAllEmployeeDetails(){
-        return employeeMapService.getAllEmployeeDetails();
+    public List<EmployeeEntity> getAllEmployeeDetails(){
+        return employeeRepository.findAll();
     }
 
     //----------------------------Utility Methods-------------------------------------
 
-    private boolean checkCity(EmployeeEntity employeeEntity, String city){
-        return city != null && (employeeEntity.getCity().contains(city)
-                || employeeEntity.getCity().toLowerCase().contains(city));
+    private boolean checkCity(EmployeeDTO employeeDTO, String city){
+        return city != null && (employeeDTO.getCity().contains(city)
+                || employeeDTO.getCity().toLowerCase().contains(city));
     }
 
-    private boolean checkFirstName(EmployeeEntity employeeEntity, String firstName){
-        return firstName != null && (employeeEntity.getFirstName().contains(firstName)
-                || employeeEntity.getFirstName().toLowerCase().contains(firstName));
+    private boolean checkFirstName(EmployeeDTO employeeDTO, String firstName){
+        return firstName != null && (employeeDTO.getFirstName().contains(firstName)
+                || employeeDTO.getFirstName().toLowerCase().contains(firstName));
     }
 
-    private boolean checkLastName(EmployeeEntity employeeEntity, String lastName){
-        return lastName != null && (employeeEntity.getLastName().contains(lastName)
-                || employeeEntity.getLastName().toLowerCase().contains(lastName));
+    private boolean checkLastName(EmployeeDTO employeeDTO, String lastName){
+        return lastName != null && (employeeDTO.getLastName().contains(lastName)
+                || employeeDTO.getLastName().toLowerCase().contains(lastName));
     }
 
-    private boolean checkCountry(EmployeeEntity employeeEntity, String country){
-        return country != null && (employeeEntity.getCountry().contains(country)
-                || employeeEntity.getCountry().toLowerCase().contains(country));
+    private boolean checkCountry(EmployeeDTO employeeDTO, String country){
+        return country != null && (employeeDTO.getCountry().contains(country)
+                || employeeDTO.getCountry().toLowerCase().contains(country));
     }
 }

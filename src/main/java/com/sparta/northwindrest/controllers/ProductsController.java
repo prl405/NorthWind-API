@@ -20,12 +20,12 @@ public class ProductsController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/northwind/products")
     public List<ProductEntity> getAllProducts(){
         return productRepository.findAll();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/northwind/products/{id}")
     public Optional<ProductEntity> getProductsById(@PathVariable Integer id){
         return productRepository.findById(id); // Exact matching
     }

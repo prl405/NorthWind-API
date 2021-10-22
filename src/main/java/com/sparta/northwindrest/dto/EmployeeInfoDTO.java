@@ -1,10 +1,14 @@
 package com.sparta.northwindrest.dto;
 
-public class EmployeeDetailsDTO {
+public class EmployeeInfoDTO {
     private Integer id;
+    private String title;
     private String firstName;
     private String lastName;
-    private String jobTitle;
+    private String phone;
+    private String extension;
+    private String address;
+    private String postcode;
     private String city;
     private String country;
 
@@ -14,6 +18,14 @@ public class EmployeeDetailsDTO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFirstName() {
@@ -32,12 +44,36 @@ public class EmployeeDetailsDTO {
         this.lastName = lastName;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public String getCity() {
