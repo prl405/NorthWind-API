@@ -1,6 +1,6 @@
 package com.sparta.northwindrest.mapservice;
 
-import com.sparta.northwindrest.dto.EmployeeDetailsDTO;
+import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,22 @@ public class EmployeeMapService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<EmployeeDetailsDTO> getAllEmployeeDetails(){
+    public List<EmployeeDTO> findAllEmployeesDTO(){
         return employeeRepository.findAll()
                 .stream()
                 .map(this::convertToEmployeeDetailsDTO)
                 .collect(Collectors.toList());
     }
 
-    private EmployeeDetailsDTO convertToEmployeeDetailsDTO(EmployeeEntity employeeEntity){
-        EmployeeDetailsDTO employeeDetailsDTO = new EmployeeDetailsDTO();
+    private EmployeeDTO convertToEmployeeDetailsDTO(EmployeeEntity employeeEntity){
+        EmployeeDTO employeeDTO = new EmployeeDTO();
 
-        employeeDetailsDTO.setId(employeeEntity.getId());
-        employeeDetailsDTO.setFirstName(employeeEntity.getFirstName());
-        employeeDetailsDTO.setLastName(employeeEntity.getLastName());
-        employeeDetailsDTO.setJobTitle(employeeEntity.getTitle());
-        employeeDetailsDTO.setCity(employeeEntity.getCity());
-        employeeDetailsDTO.setCountry(employeeEntity.getCountry());
-        return employeeDetailsDTO;
+        employeeDTO.setId(employeeEntity.getId());
+        employeeDTO.setFirstName(employeeEntity.getFirstName());
+        employeeDTO.setLastName(employeeEntity.getLastName());
+        employeeDTO.setJobTitle(employeeEntity.getTitle());
+        employeeDTO.setCity(employeeEntity.getCity());
+        employeeDTO.setCountry(employeeEntity.getCountry());
+        return employeeDTO;
     }
 }
