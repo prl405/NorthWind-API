@@ -50,9 +50,9 @@ public class EmployeeMapService {
         employeeContactDTO.setFirstName(employeeEntity.getFirstName());
         employeeContactDTO.setLastName(employeeEntity.getLastName());
         employeeContactDTO.setPhone(employeeEntity.getHomePhone());
-        employeeContactDTO.setPhone(employeeEntity.getExtension());
+        employeeContactDTO.setExtension(employeeEntity.getExtension());
         employeeContactDTO.setAddress(employeeEntity.getAddress());
-        employeeContactDTO.setPostcode(employeeContactDTO.getPostcode());
+        employeeContactDTO.setPostcode(employeeEntity.getPostalCode());
         employeeContactDTO.setCity(employeeEntity.getCity());
         employeeContactDTO.setCountry(employeeEntity.getCountry());
         return employeeContactDTO;

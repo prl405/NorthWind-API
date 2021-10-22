@@ -54,7 +54,7 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("No arguments");
         }
         else {
             return foundEntities;
