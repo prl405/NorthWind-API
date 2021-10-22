@@ -19,7 +19,7 @@ public class ShipperController {
         this.shipperRepository = shipperRepository;
     }
 
-    @GetMapping("/shippers")
+    @GetMapping("/northwind/shippers")
     @ResponseBody
     public List<ShipperEntity> getAllShippers(){
         return shipperRepository.findAll();

@@ -21,13 +21,13 @@ public class OrderController {
         this.orderRepository = orderRepository;
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/northwind/orders")
     @ResponseBody
     public List<OrderEntity> getAllOrders(){
         return orderRepository.findAll();
     }
 
-    @GetMapping("/orders/{id}")
+    @GetMapping("/northwind/orders/{id}")
     @ResponseBody
     public Optional<OrderEntity> getOrderById(@PathVariable Integer id){
         return orderRepository.findById(id);

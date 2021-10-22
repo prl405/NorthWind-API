@@ -24,7 +24,7 @@ public class EmployeeController {
         this.employeeMapService = employeeMapService;
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/northwind/employees")
     @ResponseBody
     public List<EmployeeEntity> getEmployees(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
@@ -54,13 +54,13 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/northwind/employees/{id}")
     @ResponseBody
     public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
         return employeeRepository.findById(id);
     }
 
-    @GetMapping("/employees/employeeDetails")
+    @GetMapping("/northwind/employees/employeeDetails")
     @ResponseBody
     public List<EmployeeDetailsDTO> getAllEmployeeDetails(){
         return employeeMapService.getAllEmployeeDetails();

@@ -20,7 +20,7 @@ public class CustomersController {
         this.customersRepository = customersRepository;
     }
 
-    @GetMapping("/customers")
+    @GetMapping("/northwind/customers")
     @ResponseBody
     public List<CustomersEntity> getAllCustomers(@RequestParam(required = false) String companyName){
         if (companyName == null){

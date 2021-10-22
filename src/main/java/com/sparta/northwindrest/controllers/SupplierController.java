@@ -19,7 +19,7 @@ public class SupplierController {
         this.supplierRepository = supplierRepository;
     }
 
-    @GetMapping("/suppliers")
+    @GetMapping("/northwind/suppliers")
     @ResponseBody
     public List<SupplierEntity> getAllSuppliers(){
         return supplierRepository.findAll();
