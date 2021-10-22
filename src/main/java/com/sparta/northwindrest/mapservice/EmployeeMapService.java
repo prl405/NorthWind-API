@@ -1,5 +1,6 @@
-package com.sparta.northwindrest.DTO;
+package com.sparta.northwindrest.mapservice;
 
+import com.sparta.northwindrest.dto.EmployeeDetailsDTO;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

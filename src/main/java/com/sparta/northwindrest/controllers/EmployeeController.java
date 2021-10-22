@@ -1,7 +1,7 @@
 package com.sparta.northwindrest.controllers;
 
-import com.sparta.northwindrest.DTO.EmployeeDetailsDTO;
-import com.sparta.northwindrest.DTO.EmployeeMapService;
+import com.sparta.northwindrest.dto.EmployeeDetailsDTO;
+import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            return employeeRepository.findAll();
+            throw new IllegalArgumentException();
         }
         else {
             return foundEntities;
@@ -66,7 +66,7 @@ public class EmployeeController {
         return employeeMapService.getAllEmployeeDetails();
     }
 
-    //----------------------------Util Methods-------------------------------------
+    //----------------------------Utility Methods-------------------------------------
 
     private boolean checkCity(EmployeeEntity employeeEntity, String city){
         return city != null && (employeeEntity.getCity().contains(city)
