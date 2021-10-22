@@ -1,6 +1,6 @@
 package com.sparta.northwindrest.controllers;
 
-import com.sparta.northwindrest.dto.EmployeeContactDTO;
+import com.sparta.northwindrest.dto.EmployeeInfoDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
@@ -61,22 +61,22 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/northwind/employees/contactInfo")
+    @GetMapping("/northwind/employees/info")
     @ResponseBody
-    public List<EmployeeContactDTO> getAllEmployeeContactInfo(){
-        return employeeMapService.findAllEmployeesContactDTO();
+    public List<EmployeeInfoDTO> getAllEmployeeInfo(){
+        return employeeMapService.findAllEmployeesInfoDTO();
     }
 
-    @GetMapping("/northwind/employees/{id}")
+    @GetMapping("/northwind/employees/fullInfo/{id}")
     @ResponseBody
     public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
         return employeeRepository.findById(id);
     }
 
-    @GetMapping("/northwind/employees/details")
+    @GetMapping("/northwind/employees/fullInfo")
     @ResponseBody
-    public List<EmployeeDTO> getAllEmployeeDetails(){
-        return employeeMapService.findAllEmployeesDTO();
+    public List<EmployeeEntity> getAllEmployeeDetails(){
+        return employeeRepository.findAll();
     }
 
     //----------------------------Utility Methods-------------------------------------

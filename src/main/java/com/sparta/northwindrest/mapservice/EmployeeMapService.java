@@ -1,6 +1,6 @@
 package com.sparta.northwindrest.mapservice;
 
-import com.sparta.northwindrest.dto.EmployeeContactDTO;
+import com.sparta.northwindrest.dto.EmployeeInfoDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
@@ -23,7 +23,7 @@ public class EmployeeMapService {
                 .collect(Collectors.toList());
     }
 
-    public List<EmployeeContactDTO> findAllEmployeesContactDTO(){
+    public List<EmployeeInfoDTO> findAllEmployeesInfoDTO(){
         return employeeRepository.findAll()
                 .stream()
                 .map(this::convertToEmployeeContactDTO)
@@ -42,19 +42,19 @@ public class EmployeeMapService {
         return employeeDTO;
     }
 
-    private EmployeeContactDTO convertToEmployeeContactDTO(EmployeeEntity employeeEntity){
-        EmployeeContactDTO employeeContactDTO = new EmployeeContactDTO();
+    private EmployeeInfoDTO convertToEmployeeContactDTO(EmployeeEntity employeeEntity){
+        EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO();
 
-        employeeContactDTO.setId(employeeEntity.getId());
-        employeeContactDTO.setTitle(employeeEntity.getTitle());
-        employeeContactDTO.setFirstName(employeeEntity.getFirstName());
-        employeeContactDTO.setLastName(employeeEntity.getLastName());
-        employeeContactDTO.setPhone(employeeEntity.getHomePhone());
-        employeeContactDTO.setExtension(employeeEntity.getExtension());
-        employeeContactDTO.setAddress(employeeEntity.getAddress());
-        employeeContactDTO.setPostcode(employeeEntity.getPostalCode());
-        employeeContactDTO.setCity(employeeEntity.getCity());
-        employeeContactDTO.setCountry(employeeEntity.getCountry());
-        return employeeContactDTO;
+        employeeInfoDTO.setId(employeeEntity.getId());
+        employeeInfoDTO.setTitle(employeeEntity.getTitle());
+        employeeInfoDTO.setFirstName(employeeEntity.getFirstName());
+        employeeInfoDTO.setLastName(employeeEntity.getLastName());
+        employeeInfoDTO.setPhone(employeeEntity.getHomePhone());
+        employeeInfoDTO.setExtension(employeeEntity.getExtension());
+        employeeInfoDTO.setAddress(employeeEntity.getAddress());
+        employeeInfoDTO.setPostcode(employeeEntity.getPostalCode());
+        employeeInfoDTO.setCity(employeeEntity.getCity());
+        employeeInfoDTO.setCountry(employeeEntity.getCountry());
+        return employeeInfoDTO;
     }
 }

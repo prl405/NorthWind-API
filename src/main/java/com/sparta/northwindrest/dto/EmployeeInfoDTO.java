@@ -1,6 +1,6 @@
 package com.sparta.northwindrest.dto;
 
-public class EmployeeContactDTO {
+public class EmployeeInfoDTO {
     private Integer id;
     private String title;
     private String firstName;
