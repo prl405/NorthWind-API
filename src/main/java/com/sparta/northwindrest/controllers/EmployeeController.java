@@ -4,11 +4,11 @@ import com.sparta.northwindrest.dto.EmployeeCustomersDTO;
 import com.sparta.northwindrest.dto.EmployeeInfoDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
 import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
+import com.sparta.northwindrest.exceptionhandlers.UtilityExceptionMethods;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -78,7 +78,8 @@ public class EmployeeController {
 
     @GetMapping("/northwind/employees/fullInfo/{id}")
     @ResponseBody
-    public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
+    public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id) throws EntityNotFoundException{
+        UtilityExceptionMethods.checkUpperBound(id, employeeRepository.findAll().size());
         return employeeRepository.findById(id);
     }
 

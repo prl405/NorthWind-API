@@ -6,7 +6,6 @@ import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
 import com.sparta.northwindrest.mapservice.CustomersMapService;
 import com.sparta.northwindrest.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

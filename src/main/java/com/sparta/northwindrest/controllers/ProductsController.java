@@ -1,6 +1,8 @@
 package com.sparta.northwindrest.controllers;
 
 import com.sparta.northwindrest.entities.ProductEntity;
+import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
+import com.sparta.northwindrest.exceptionhandlers.UtilityExceptionMethods;
 import com.sparta.northwindrest.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,8 @@ public class ProductsController {
     }
 
     @GetMapping("/northwind/products/{id}")
-    public Optional<ProductEntity> getProductsById(@PathVariable Integer id){
+    public Optional<ProductEntity> getProductsById(@PathVariable Integer id) throws EntityNotFoundException {
+        UtilityExceptionMethods.checkUpperBound(id, productRepository.findAll().size());
         return productRepository.findById(id); // Exact matching
     }
 }
