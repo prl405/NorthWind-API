@@ -19,16 +19,6 @@ public class CategoryEntity {
     @Column(name = "Description")
     private String description;
 
-    @Column(name = "Picture")
-    private byte[] picture;
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
 
     public String getDescription() {
         return description;

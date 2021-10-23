@@ -7,6 +7,7 @@ public class EmployeeDTO {
     private String jobTitle;
     private String city;
     private String country;
+    private String phoneNumber;
 
     public Integer getId() {
         return id;
@@ -54,5 +55,13 @@ public class EmployeeDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

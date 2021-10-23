@@ -3,6 +3,8 @@ package com.sparta.northwindrest.controllers;
 import com.sparta.northwindrest.dto.EmployeeCustomersDTO;
 import com.sparta.northwindrest.dto.EmployeeInfoDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
+import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
+import com.sparta.northwindrest.exceptionhandlers.UtilityExceptionMethods;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/northwind")
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
@@ -26,18 +29,18 @@ public class EmployeeController {
         this.employeeMapService = employeeMapService;
     }
 
-    @GetMapping("/northwind/employees")
+    @GetMapping("/employees")
     @ResponseBody
     public List<EmployeeDTO> getAllEmployees(){
         return employeeMapService.findAllEmployeesDTO();
     }
 
-    @GetMapping("/northwind/employees/")
+    @GetMapping("/employees/")
     @ResponseBody
     public List<EmployeeDTO> getEmployees(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String country,
-                                             @RequestParam(required = false) String city){
+                                             @RequestParam(required = false) String city) throws EntityNotFoundException{
 
         List<EmployeeDTO> foundEntities = new ArrayList<>();
         for (EmployeeDTO employeeDTO : employeeMapService.findAllEmployeesDTO()) {
@@ -55,32 +58,33 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            throw new IllegalArgumentException("No arguments");
+            throw new EntityNotFoundException("No Values Provided");
         }
         else {
             return foundEntities;
         }
     }
 
-    @GetMapping("/northwind/employees/info")
+    @GetMapping("/employees/info")
     @ResponseBody
     public List<EmployeeInfoDTO> getAllEmployeeInfo(){
         return employeeMapService.findAllEmployeesInfoDTO();
     }
 
-    @GetMapping("/northwind/employees/customers")
+    @GetMapping("/employees/customers")
     @ResponseBody
     public List<EmployeeCustomersDTO> getAllEmployeeCustomers(){
         return employeeMapService.findAllEmployeeCustomersDTO();
     }
 
-    @GetMapping("/northwind/employees/fullInfo/{id}")
+    @GetMapping("/employees/fullInfo/{id}")
     @ResponseBody
-    public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id){
+    public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id) throws EntityNotFoundException{
+        UtilityExceptionMethods.checkUpperBound(id, employeeRepository.findAll().size());
         return employeeRepository.findById(id);
     }
 
-    @GetMapping("/northwind/employees/fullInfo")
+    @GetMapping("/employees/fullInfo")
     @ResponseBody
     public List<EmployeeEntity> getAllEmployeeDetails(){
         return employeeRepository.findAll();
