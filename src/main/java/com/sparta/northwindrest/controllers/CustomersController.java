@@ -2,9 +2,11 @@ package com.sparta.northwindrest.controllers;
 
 import com.sparta.northwindrest.dto.CustomersDTO;
 import com.sparta.northwindrest.entities.CustomersEntity;
+import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
 import com.sparta.northwindrest.mapservice.CustomersMapService;
 import com.sparta.northwindrest.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,9 +35,18 @@ public class CustomersController {
 
     @GetMapping("/northwind/customers/fullInfo")
     @ResponseBody
-    public List<CustomersEntity> getAllCustomersInfo(@RequestParam(required = false) String companyName){
+    public List<CustomersEntity> getAllCustomersInfo(){
+        return customersRepository.findAll();
+
+    }
+
+    @GetMapping("/northwind/customers/fullInfo/")
+    @ResponseBody
+    public List<CustomersEntity> getCustomerInfoByName(@RequestParam(required = false) String companyName)
+            throws EntityNotFoundException{
+
         if (companyName == null){
-            return customersRepository.findAll();
+            throw new EntityNotFoundException("No Values Provided");
         }
         return customersRepository.findAll()
                 .stream()

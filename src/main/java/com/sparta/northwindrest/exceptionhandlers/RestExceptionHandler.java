@@ -28,10 +28,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFound(
-            EntityNotFoundException ex) {
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
-        apiError.setMessage(ex.getMessage());
+    protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
+        String message = "Value out of Bounds";
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, message, ex);
+
         return buildResponseEntity(apiError);
     }
 

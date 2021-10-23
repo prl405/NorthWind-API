@@ -15,22 +15,6 @@ public class ApiError {
 
 
 
-    public ApiError() {
-        this.timestamp = LocalDateTime.now();
-    }
-
-    public ApiError(HttpStatus status) {
-        this.timestamp = LocalDateTime.now();
-        this.status = status;
-    }
-
-    public ApiError(HttpStatus status, Throwable ex) {
-        this.status = status;
-        this.message = "Unexpected error";
-        this.timestamp = LocalDateTime.now();
-        this.debugMessage = ex.getLocalizedMessage();
-    }
-
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this.status = status;
         this.message = message;
