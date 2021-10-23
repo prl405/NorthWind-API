@@ -1,4 +1,4 @@
-package customswagger;
+package com.sparta.northwindrest.controllers;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
