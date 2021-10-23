@@ -3,6 +3,7 @@ package com.sparta.northwindrest.controllers;
 import com.sparta.northwindrest.dto.EmployeeCustomersDTO;
 import com.sparta.northwindrest.dto.EmployeeInfoDTO;
 import com.sparta.northwindrest.dto.EmployeeDTO;
+import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
 import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
@@ -38,7 +39,7 @@ public class EmployeeController {
     public List<EmployeeDTO> getEmployees(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String country,
-                                             @RequestParam(required = false) String city){
+                                             @RequestParam(required = false) String city) throws EntityNotFoundException{
 
         List<EmployeeDTO> foundEntities = new ArrayList<>();
         for (EmployeeDTO employeeDTO : employeeMapService.findAllEmployeesDTO()) {
@@ -56,7 +57,7 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            throw new HttpMessageNotReadableException("asdf");
+            throw new EntityNotFoundException("No Values Provided");
         }
         else {
             return foundEntities;
