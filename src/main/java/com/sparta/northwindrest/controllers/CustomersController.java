@@ -1,6 +1,8 @@
 package com.sparta.northwindrest.controllers;
 
+import com.sparta.northwindrest.dto.CustomersDTO;
 import com.sparta.northwindrest.entities.CustomersEntity;
+import com.sparta.northwindrest.mapservice.CustomersMapService;
 import com.sparta.northwindrest.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +16,24 @@ import java.util.List;
 public class CustomersController {
 
     private final CustomersRepository customersRepository;
+    @Autowired
+    private final CustomersMapService customersMapService;
 
     @Autowired
-    public CustomersController(CustomersRepository customersRepository) {
+    public CustomersController(CustomersRepository customersRepository, CustomersMapService customersMapService) {
         this.customersRepository = customersRepository;
+        this.customersMapService = customersMapService;
     }
 
     @GetMapping("/northwind/customers")
     @ResponseBody
-    public List<CustomersEntity> getAllCustomers(@RequestParam(required = false) String companyName){
+    public List<CustomersDTO> getAllCustomers(){
+        return customersMapService.findAllCustomersDTO();
+    }
+
+    @GetMapping("/northwind/customers/fullInfo")
+    @ResponseBody
+    public List<CustomersEntity> getAllCustomersInfo(@RequestParam(required = false) String companyName){
         if (companyName == null){
             return customersRepository.findAll();
         }
