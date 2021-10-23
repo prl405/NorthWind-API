@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/northwind")
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
@@ -28,13 +29,13 @@ public class EmployeeController {
         this.employeeMapService = employeeMapService;
     }
 
-    @GetMapping("/northwind/employees")
+    @GetMapping("/employees")
     @ResponseBody
     public List<EmployeeDTO> getAllEmployees(){
         return employeeMapService.findAllEmployeesDTO();
     }
 
-    @GetMapping("/northwind/employees/")
+    @GetMapping("/employees/")
     @ResponseBody
     public List<EmployeeDTO> getEmployees(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
@@ -64,26 +65,26 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/northwind/employees/info")
+    @GetMapping("/employees/info")
     @ResponseBody
     public List<EmployeeInfoDTO> getAllEmployeeInfo(){
         return employeeMapService.findAllEmployeesInfoDTO();
     }
 
-    @GetMapping("/northwind/employees/customers")
+    @GetMapping("/employees/customers")
     @ResponseBody
     public List<EmployeeCustomersDTO> getAllEmployeeCustomers(){
         return employeeMapService.findAllEmployeeCustomersDTO();
     }
 
-    @GetMapping("/northwind/employees/fullInfo/{id}")
+    @GetMapping("/employees/fullInfo/{id}")
     @ResponseBody
     public Optional<EmployeeEntity> getEmployeeById(@PathVariable Integer id) throws EntityNotFoundException{
         UtilityExceptionMethods.checkUpperBound(id, employeeRepository.findAll().size());
         return employeeRepository.findById(id);
     }
 
-    @GetMapping("/northwind/employees/fullInfo")
+    @GetMapping("/employees/fullInfo")
     @ResponseBody
     public List<EmployeeEntity> getAllEmployeeDetails(){
         return employeeRepository.findAll();

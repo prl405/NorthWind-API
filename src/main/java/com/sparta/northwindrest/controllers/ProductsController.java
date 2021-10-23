@@ -7,12 +7,14 @@ import com.sparta.northwindrest.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/northwind")
 public class ProductsController {
 
     private final ProductRepository productRepository;
@@ -22,12 +24,12 @@ public class ProductsController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/northwind/products")
+    @GetMapping("/products")
     public List<ProductEntity> getAllProducts(){
         return productRepository.findAll();
     }
 
-    @GetMapping("/northwind/products/{id}")
+    @GetMapping("/products/{id}")
     public Optional<ProductEntity> getProductsById(@PathVariable Integer id) throws EntityNotFoundException {
         UtilityExceptionMethods.checkUpperBound(id, productRepository.findAll().size());
         return productRepository.findById(id); // Exact matching

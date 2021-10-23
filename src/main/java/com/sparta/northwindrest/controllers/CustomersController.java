@@ -6,14 +6,12 @@ import com.sparta.northwindrest.exceptionhandlers.EntityNotFoundException;
 import com.sparta.northwindrest.mapservice.CustomersMapService;
 import com.sparta.northwindrest.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/northwind")
 public class CustomersController {
 
     private final CustomersRepository customersRepository;
@@ -26,20 +24,20 @@ public class CustomersController {
         this.customersMapService = customersMapService;
     }
 
-    @GetMapping("/northwind/customers")
+    @GetMapping("/customers")
     @ResponseBody
     public List<CustomersDTO> getAllCustomers(){
         return customersMapService.findAllCustomersDTO();
     }
 
-    @GetMapping("/northwind/customers/fullInfo")
+    @GetMapping("/customers/fullInfo")
     @ResponseBody
     public List<CustomersEntity> getAllCustomersInfo(){
         return customersRepository.findAll();
 
     }
 
-    @GetMapping("/northwind/customers/fullInfo/")
+    @GetMapping("/customers/fullInfo/")
     @ResponseBody
     public List<CustomersEntity> getCustomerInfoByName(@RequestParam(required = false) String companyName)
             throws EntityNotFoundException{

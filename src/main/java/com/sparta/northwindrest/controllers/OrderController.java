@@ -7,15 +7,13 @@ import com.sparta.northwindrest.exceptionhandlers.UtilityExceptionMethods;
 import com.sparta.northwindrest.mapservice.OrdersMapService;
 import com.sparta.northwindrest.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/northwind")
 public class OrderController {
 
     private final OrderRepository orderRepository;
@@ -28,19 +26,19 @@ public class OrderController {
         this.ordersMapService = ordersMapService;
     }
 
-    @GetMapping("/northwind/orders")
+    @GetMapping("/orders")
     @ResponseBody
     public List<OrdersDTO> getAllOrders(){
         return ordersMapService.findAllOrdersDTO();
     }
 
-    @GetMapping("/northwind/orders/fullInfo")
+    @GetMapping("/orders/fullInfo")
     @ResponseBody
     public List<OrderEntity> getAllOrdersInfo(){
         return orderRepository.findAll();
     }
 
-    @GetMapping("/northwind/orders/{id}")
+    @GetMapping("/orders/{id}")
     @ResponseBody
     public Optional<OrderEntity> getOrderById(@PathVariable Integer id) throws EntityNotFoundException {
         UtilityExceptionMethods.checkBounds(id, 10248, 11077);
