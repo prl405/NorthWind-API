@@ -17,7 +17,7 @@ public class CustomSwagger {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.sparta.northwindrest.controllers"))
-                .paths(PathSelectors.ant("/northwind/*"))
+                .paths(PathSelectors.any())
                 .build();
     }
 }
