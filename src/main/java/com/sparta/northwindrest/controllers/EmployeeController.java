@@ -7,6 +7,7 @@ import com.sparta.northwindrest.mapservice.EmployeeMapService;
 import com.sparta.northwindrest.entities.EmployeeEntity;
 import com.sparta.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class EmployeeController {
             }
         }
         if (foundEntities.size() == 0){
-            throw new IllegalArgumentException("No arguments");
+            throw new HttpMessageNotReadableException("asdf");
         }
         else {
             return foundEntities;
