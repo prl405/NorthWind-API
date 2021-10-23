@@ -53,9 +53,6 @@ public class EmployeeEntity {
     @Column(name = "Extension", length = 4)
     private String extension;
 
-    @Column(name = "Photo")
-    private byte[] photo;
-
     @Lob
     @Column(name = "Notes", nullable = false)
     private String notes;
@@ -100,14 +97,6 @@ public class EmployeeEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
     }
 
     public String getExtension() {

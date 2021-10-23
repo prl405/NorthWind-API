@@ -8,7 +8,7 @@ public class OrdersDTO {
 
     private Integer orderId;
     private String customerId;
-    private Integer employeeId;
+    private EmployeeDTO employee;
     private Instant orderedDate;
     private Instant requiredDate;
     private Instant shippedDate;
@@ -33,12 +33,12 @@ public class OrdersDTO {
         this.customerId = customerId;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public EmployeeDTO getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(EmployeeDTO employee) {
+        this.employee = employee;
     }
 
     public Instant getOrderedDate() {

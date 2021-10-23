@@ -47,7 +47,7 @@ public class EmployeeMapService {
                 .collect(Collectors.toList());
     }
 
-    private EmployeeDTO convertToEmployeeDTO(EmployeeEntity employeeEntity){
+    public EmployeeDTO convertToEmployeeDTO(EmployeeEntity employeeEntity){
         EmployeeDTO employeeDTO = new EmployeeDTO();
 
         employeeDTO.setId(employeeEntity.getId());
@@ -56,6 +56,7 @@ public class EmployeeMapService {
         employeeDTO.setJobTitle(employeeEntity.getTitle());
         employeeDTO.setCity(employeeEntity.getCity());
         employeeDTO.setCountry(employeeEntity.getCountry());
+        employeeDTO.setPhoneNumber(employeeEntity.getHomePhone());
         return employeeDTO;
     }
 

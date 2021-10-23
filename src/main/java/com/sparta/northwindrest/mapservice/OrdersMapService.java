@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 public class OrdersMapService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private EmployeeMapService employeeMapService;
 
     public List<OrdersDTO> findAllOrdersDTO(){
         return orderRepository.findAll()
@@ -26,7 +28,7 @@ public class OrdersMapService {
 
         ordersDTO.setOrderId(orderEntity.getId());
         ordersDTO.setCustomerId(orderEntity.getCustomerID().getId());
-        ordersDTO.setEmployeeId(orderEntity.getEmployeeID().getId());
+        ordersDTO.setEmployee(employeeMapService.convertToEmployeeDTO(orderEntity.getEmployeeID()));
         ordersDTO.setOrderedDate(orderEntity.getOrderDate());
         ordersDTO.setRequiredDate(orderEntity.getRequiredDate());
         ordersDTO.setShippedDate(orderEntity.getShippedDate());
